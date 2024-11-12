@@ -1,0 +1,19 @@
+CSCI 2720 Programming Assignment 4
+Colson Drake
+Fall 2024
+
+General Requirements: 
+* implementing: selection sort, merge sort, heap sort, and quick sort
+* writing a report analyzing the functions
+    * note: for quick sort, two unique implementations are to be written: one uses the last element of the array as the pivot, the other should use a random element of the array as the pivot
+* ALL functions need to keep track of the NUMBER OF COMPARISONS used by the sorting algorithm
+* each sorting algorithm should sort an array of integers into ASCENDING order
+
+Additional Requirements: 
+* no need for generics or an 'ItemType' class
+* ***AT LEAST TWO sorting algorithms need to be written RECURSIVELY
+* program should TERMINATE after the sorting is done 
+* RECOMMENDATION: create a 'Sorting.java' class with all the sorting algorithms as methods, use an integer array to store the input, and pass this integer array to these methods
+* driver will take which sorting algorithm to be used as input
+* use type LONG to count comparisons
+* 
