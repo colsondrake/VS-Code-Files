@@ -16,7 +16,7 @@ public class SortDriver {
             br.close();
 
         // file error handling
-        } catch (FileNotFoundException e || IOException e) { 
+        } catch (IOException e) { 
             System.out.println(e);
         } // try
         
@@ -24,46 +24,49 @@ public class SortDriver {
         String[] fileStrArr = fileText.split(" "); 
 
         // convert string elements to integer elements
-        int[] input = new int[fileStrArr.length];
-        for (String str : fileStrArr) {
-            input[str] = Integer.parseInt(fileStrArr[str]);
+        int[] intArr = new int[fileStrArr.length];
+        for (int i = 0; i < fileStrArr.length; i++) {
+            intArr[i] = Integer.parseInt(fileStrArr[i]);
         } // for
 
         // instantiate Sorting class
-        Sorting sortClass = new Sorting(input);
+        Sorting sortClass = new Sorting(intArr);
 
-        // take algorithm input
-        String input = "";
+        // take algorithm choice as input
+        String algInput = "";
         System.out.println("selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-last (q) quick-sort-rand (r)"); 
         System.out.print("Enter the algorithm: ");
-        input = scn.nextLine();
-        switch (input) {
+        algInput = scn.nextLine();
+        switch (algInput) {
             case "s":
                 sortClass.selectionSort();
-                sortClass.print();
+                sortClass.print(algInput);
                 break;
             
             case "m":
                 sortClass.mergeSort();
-                sortClass.print();
+                sortClass.print(algInput);
                 break;
 
             case "h":
                 sortClass.heapSort();
-                sortClass.print();
+                sortClass.print(algInput);
                 break;
             
             case "q":
                 sortClass.quickSortLast();
-                sortClass.print();
+                sortClass.print(algInput);
                 break;
             
             case "r":
                 sortClass.quickSortRand();
-                sortClass.print();
+                sortClass.print(algInput);
                 break;
 
             default:
                 break;
         } // switch
+
+        scn.close();
+    } // main
 } // SortDriver
