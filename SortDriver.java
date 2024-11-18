@@ -1,3 +1,6 @@
+/**
+ * This program is a driver program which implements and executes Sorting.java, a program that implements several sorting algorithms. 
+ */
 import java.util.Scanner;
 import java.io.*;
 
@@ -38,31 +41,38 @@ public class SortDriver {
         System.out.print("Enter the algorithm: ");
         algInput = scn.nextLine();
         switch (algInput) {
+
+            // Implement the selectionSort() method 
             case "s":
                 sortClass.selectionSort();
                 sortClass.print(algInput);
                 break;
             
+            // Implement the mergeSort() method
             case "m":
                 sortClass.mergeSort();
                 sortClass.print(algInput);
                 break;
 
+            // Implement the heapSort() method
             case "h":
                 sortClass.heapSort();
                 sortClass.print(algInput);
                 break;
             
+            // Implement the quickSortLast() method
             case "q":
                 sortClass.quickSortLast();
                 sortClass.print(algInput);
                 break;
             
+            // Implement the quickSortRand() method
             case "r":
                 sortClass.quickSortRand();
                 sortClass.print(algInput);
                 break;
 
+            // If something else is received as input, do nothing. 
             default:
                 break;
         } // switch
