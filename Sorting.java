@@ -70,11 +70,41 @@ public class Sorting {
     } // print
 
     /**
-     * A selection-sort algorithm performed on the class 'array' variable.
+     * An iterative selection-sort algorithm performed on the class 'array' variable.
+     * 
+     * Time complexity: O(n^2)
      */
     public void selectionSort() {
-
+        for (int i = 0; i < this.array.length - 1; i++) {
+            swap(i, minIndex(i));
+        } // for
     } // selectionSort
+
+    /**
+     * An iterative method which returns the smallest number in the array from the given 'start' index.
+     * 
+     * {@param} the index from which to start iterating through 'array'
+     */
+    int minIndex(int start) {
+        int indexOfMin = start;
+        for (int i = start + 1; i < this.array.length; i++) {
+            if (this.array[i] < this.array[indexOfMin]) indexOfMin = i;
+            this.compCount++;
+        } // for
+        return indexOfMin;
+    } // minIndex
+
+    /**
+     * Swap the values of the two given indexes in 'array'.
+     * 
+     * {@param} indexOne the first index in 'array' to swap
+     * {@param} indexTwo the second index in 'array' to swap
+     */
+    public void swap(int indexOne, int indexTwo) {
+        int tempVar = this.array[indexOne];
+        this.array[indexOne] = this.array[indexTwo];
+        this.array[indexTwo] = tempVar;
+    } // swap
 
     /**
      * A merge-sort algorithm performed on the class 'array' variable.
