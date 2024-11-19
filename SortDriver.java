@@ -6,10 +6,22 @@ import java.io.*;
 
 public class SortDriver {
     public static void main(String[] args) {
-        
-        Scanner scn = new Scanner(System.in);
-        BufferedReader br;
-        String fileText = "";
+
+        // Driver program execution variables-------------------------------
+
+        Scanner scn; // Scanner class instance variable to take user input
+        BufferedReader br; // BufferedReader instance variable used to read input file (i.e. args[0])
+        String fileText; // String variable used to store the entire contents of the input file
+
+        String[] fileStrArr; // String array used to store each individual entry in fileText
+        int[] intArr; // Integer array used to store converted Strings -> Integers from fileStrArr
+
+        Sorting sortClass = new Sorting(intArr); // Sorting class instance variable 
+        String algInput = "";
+
+        // Variable instantiation
+        scn = new Scanner(System.in);
+        fileText = "";
         
         // properly intake the input text file
         try {
@@ -24,19 +36,15 @@ public class SortDriver {
         } // try
         
         // convert text file string into array of strings
-        String[] fileStrArr = fileText.split(" "); 
+        fileStrArr = fileText.split(" "); 
 
         // convert string elements to integer elements
-        int[] intArr = new int[fileStrArr.length];
+        intArr = new int[fileStrArr.length];
         for (int i = 0; i < fileStrArr.length; i++) {
             intArr[i] = Integer.parseInt(fileStrArr[i]);
         } // for
 
-        // instantiate Sorting class
-        Sorting sortClass = new Sorting(intArr);
-
         // take algorithm choice as input
-        String algInput = "";
         System.out.println("selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-last (q) quick-sort-rand (r)"); 
         System.out.print("Enter the algorithm: ");
         algInput = scn.nextLine();
@@ -45,31 +53,26 @@ public class SortDriver {
             // Implement the selectionSort() method 
             case "s":
                 sortClass.selectionSort();
-                sortClass.print(algInput);
                 break;
             
             // Implement the mergeSort() method
             case "m":
                 sortClass.mergeSort();
-                sortClass.print(algInput);
                 break;
 
             // Implement the heapSort() method
             case "h":
                 sortClass.heapSort();
-                sortClass.print(algInput);
                 break;
             
             // Implement the quickSortLast() method
             case "q":
                 sortClass.quickSortLast();
-                sortClass.print(algInput);
                 break;
             
             // Implement the quickSortRand() method
             case "r":
                 sortClass.quickSortRand();
-                sortClass.print(algInput);
                 break;
 
             // If something else is received as input, do nothing. 

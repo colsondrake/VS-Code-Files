@@ -5,64 +5,26 @@ public class Sorting {
 
     /**
      * Instance variables:
-     * - 'array': an integer array storing the list of integers used by the program and its sorting algorithms (as class methods).
      * - 'compCount': the 'running total' of the number of comparisons executed by a single program execution.
      */
-    public int[] array;
     public int compCount;
 
     /**
-     * The default constructor method
+     * The default constructor method.
      */
     public Sorting() {
-        this.array = null;
         this.compCount = 0;
     } // Sorting
-
-    /**
-     * A custom contstructor method to set the class's 'array' variable to the given input integer array
-     */
-    public Sorting(int[] inArr) {
-        this.array = inArr;
-        this.compCount = 0;
-    } // Sorting
-
-    /**
-     * The program's print function; prints the following in the following order: 1) the newly sorted integer array, 2) the sorting algorithm used, 3) the number of comparisons executed by the executed sorting algorithm chosen (by user input)
-     */
-    public void print(String pType) {
-        for (int num : array) System.out.print(array[num] + " ");
-        System.out.println();
-        switch (pType) {
-            case "s":
-                System.out.print("#Selection-sort comparisons: ");
-                break;
-            case "m":
-                System.out.print("#Merge-sort comparisons: ");
-                break;
-            case "h":
-                System.out.print("#Heap-sort comparisons: ");
-                break;
-            case "q":
-                System.out.print("#quick-sort-last comparisons: ");
-                break;
-            case "r":
-                System.out.print("#quick-sort-rand comparisons: ");
-                break;
-            default:
-                break;
-        } // switch
-        System.out.println(this.compCount);
-    } // print
 
     /**
      * An iterative selection-sort algorithm performed on the class 'array' variable.
      * 
      * Time complexity: O(n^2)
      */
-    public void selectionSort() {
-        for (int i = 0; i < this.array.length - 1; i++) {
-            swap(i, minIndex(i));
+    public void selectionSort(int[] values, int numValues) {
+        int endIndex = numValues - 1;
+        for (int current = 0; current < endIndex; current++) {
+            swap(values[current], values[minIndex(values, current, endIndex)]);
         } // for
     } // selectionSort
 
@@ -71,11 +33,10 @@ public class Sorting {
      * 
      * {@param} the index from which to start iterating through 'array'
      */
-    int minIndex(int start) {
+    public int minIndex(int[] values, int start, int end) {
         int indexOfMin = start;
-        for (int i = start + 1; i < this.array.length; i++) {
-            if (this.array[i] < this.array[indexOfMin]) indexOfMin = i;
-            this.compCount++;
+        for (int index = start + 1; index <= end; index++) {
+            if (values[index] < values[indexOfMin]) indexOfMin = index;
         } // for
         return indexOfMin;
     } // minIndex
@@ -86,12 +47,12 @@ public class Sorting {
      * {@param} indexOne the first index in 'array' to swap
      * {@param} indexTwo the second index in 'array' to swap
      */
-    public void swap(int indexOne, int indexTwo) {
-        int tempVar = this.array[indexOne];
-        this.array[indexOne] = this.array[indexTwo];
-        this.array[indexTwo] = tempVar;
+    public void swap(int varOne, int varTwo) {
+        int tempVar = varOne;
+        varOne = varTwo;
+        varTwo = tempVar;
     } // swap
-
+    
     /**
      * A recursive merge-sort algorithm performed on the class 'array' variable.
      * Runtime Complexity: O(n*log^2(n))
@@ -145,10 +106,35 @@ public class Sorting {
     /**
      * A heap-sort algorithm performed on the class 'array' variable.
      */
-    public void heapSort() {
-
+    public void heapSort(int[] values, int numValues) {
+        for (int index = numValues/2 - 1; index >= 0; index--) {
+            reHeapDown(values, index, numValues - 1);
+        } // for
+        for (int index = numValues - 1; index >= 1; index--) {
+            swap(values[0], values[index]);
+            reHeapDown(values, 0, index - 1);
+        } // for
     } // heapSort
+    
+    public void reHeapDown(int[] values, int root, int bottom) {
+        int maxIndex;
+        int rightChild;
+        int leftChild;
 
+        maxIndex = -1;
+        rightChild = root * 2 + 2;
+        leftChild = root * 2 + 1;
+
+        if (leftChild <= bottom) {
+            if (values[leftChild] > values[rightChild]) maxIndex = leftChild;
+            else maxIndex = rightChild;
+            if (values[maxIndex] > values[root]) {
+                swap(values, maxIndex, root);
+                reHeapDown(values, maxIndex, bottom);
+            } // if
+        } // if
+    } // reHeapDown
+    
     /**
      * A quick-sort algorithm performed on the class 'array' variable, using the last element in the array as the pivot.
      */
