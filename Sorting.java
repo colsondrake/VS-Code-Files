@@ -8,8 +8,8 @@ public class Sorting {
      * - 'array': an integer array storing the list of integers used by the program and its sorting algorithms (as class methods).
      * - 'compCount': the 'running total' of the number of comparisons executed by a single program execution.
      */
-    private int[] array;
-    private int compCount;
+    public int[] array;
+    public int compCount;
 
     /**
      * The default constructor method
@@ -26,20 +26,6 @@ public class Sorting {
         this.array = inArr;
         this.compCount = 0;
     } // Sorting
-
-    /**
-     * A get function for the program's integer array 'array'
-     */
-    public int[] getArray() {
-        return this.array;
-    } // getArray
-
-    /**
-     * A set function for the program's integer array 'array'
-     */
-    public void setArray(int[] inArr) {
-        this.array = inArr;
-    } // setArray
 
     /**
      * The program's print function; prints the following in the following order: 1) the newly sorted integer array, 2) the sorting algorithm used, 3) the number of comparisons executed by the executed sorting algorithm chosen (by user input)
@@ -107,11 +93,54 @@ public class Sorting {
     } // swap
 
     /**
-     * A merge-sort algorithm performed on the class 'array' variable.
+     * A recursive merge-sort algorithm performed on the class 'array' variable.
+     * Runtime Complexity: O(n*log^2(n))
      */
-    public void mergeSort() {
-
+    public void mergeSort(int values[], int first, int last) {
+        if (first < last) {
+            int middle = (first + last) / 2;
+            mergeSort(values, first, middle);
+            mergeSort(values, middle + 1, last);
+            merge(values, first, middle, middle+1, last);
+        } // if
     } // mergeSort
+
+    /**
+     * Merge two sorted subsections of a given array.
+     * Runtime complexity: O(n)
+     */
+    public void merge(int values[], int leftFirst, int leftLast, int rightFirst, int rightLast) {
+        int[] tempArray = new int[this.array.length]; // ISSUE: may need changing
+        int index = leftFirst;
+        int saveFirst = leftFirst;
+
+        while ((leftFirst <= leftLast) && (rightFirst <= rightLast)) {
+            if (values[leftFirst] < values[rightFirst]) {
+                tempArray[index] = values[leftFirst];
+                leftFirst++;
+            } else {
+                tempArray[index] = values[rightFirst];
+                rightFirst++;
+            } // if
+            index++;
+        } // while
+
+        while (leftFirst <= leftLast) {
+            tempArray[index] = values[leftFirst];
+            leftFirst++;
+            index++;
+        } // while
+
+        while (rightFirst <= rightLast) {
+            tempArray[index] = values[rightFirst];
+            rightFirst++;
+            index++;
+        } // while
+
+        for (index = saveFirst; index <= rightLast; index++) {
+            values[index] = tempArray[index];
+        } // for
+    } // merge
 
     /**
      * A heap-sort algorithm performed on the class 'array' variable.
