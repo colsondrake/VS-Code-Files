@@ -16,22 +16,24 @@ public class SortDriver {
         String[] fileStrArr; // String array used to store each individual entry in fileText
         int[] intArr; // Integer array used to store converted Strings -> Integers from fileStrArr
 
-        Sorting sortClass = new Sorting(intArr); // Sorting class instance variable 
-        String algInput = "";
+        Sorting sortClass; // Sorting class instance variable 
+        String algInput; // String user input to decide which sorting algorithm method to perform
 
-        // Variable instantiation
+        // Variable instantiation-------------------------------------------
         scn = new Scanner(System.in);
         fileText = "";
+        sortClass = new Sorting();
+        algInput = "";
         
-        // properly intake the input text file
+        // Stage program execution------------------------------------------
+
+        // Properly intake the input text file
         try {
             // store the given text file into the String variable 'fileText' via use of a BufferedReader
             br = new BufferedReader(new FileReader(args[0]));
             fileText = br.readLine();
             br.close();
-
-        // file error handling
-        } catch (IOException e) { 
+        } catch (IOException e) { // file error handling
             System.out.println(e);
         } // try
         
@@ -44,7 +46,7 @@ public class SortDriver {
             intArr[i] = Integer.parseInt(fileStrArr[i]);
         } // for
 
-        // take algorithm choice as input
+        // Execute program functionality------------------------------------
         System.out.println("selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-last (q) quick-sort-rand (r)"); 
         System.out.print("Enter the algorithm: ");
         algInput = scn.nextLine();
@@ -52,17 +54,17 @@ public class SortDriver {
 
             // Implement the selectionSort() method 
             case "s":
-                sortClass.selectionSort();
+                sortClass.selectionSort(intArr, intArr.length);
                 break;
             
             // Implement the mergeSort() method
             case "m":
-                sortClass.mergeSort();
+                sortClass.mergeSort(intArr, intArr[0], intArr[intArr.length-1]);
                 break;
 
             // Implement the heapSort() method
             case "h":
-                sortClass.heapSort();
+                sortClass.heapSort(intArr, intArr.length);
                 break;
             
             // Implement the quickSortLast() method

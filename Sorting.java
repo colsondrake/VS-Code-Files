@@ -18,7 +18,6 @@ public class Sorting {
 
     /**
      * An iterative selection-sort algorithm performed on the class 'array' variable.
-     * 
      * Time complexity: O(n^2)
      */
     public void selectionSort(int[] values, int numValues) {
@@ -30,8 +29,6 @@ public class Sorting {
 
     /**
      * An iterative method which returns the smallest number in the array from the given 'start' index.
-     * 
-     * {@param} the index from which to start iterating through 'array'
      */
     public int minIndex(int[] values, int start, int end) {
         int indexOfMin = start;
@@ -43,9 +40,6 @@ public class Sorting {
 
     /**
      * Swap the values of the two given indexes in 'array'.
-     * 
-     * {@param} indexOne the first index in 'array' to swap
-     * {@param} indexTwo the second index in 'array' to swap
      */
     public void swap(int varOne, int varTwo) {
         int tempVar = varOne;
@@ -71,7 +65,7 @@ public class Sorting {
      * Runtime complexity: O(n)
      */
     public void merge(int values[], int leftFirst, int leftLast, int rightFirst, int rightLast) {
-        int[] tempArray = new int[this.array.length]; // ISSUE: may need changing
+        int[] tempArray = new int[values.length];
         int index = leftFirst;
         int saveFirst = leftFirst;
 
@@ -116,6 +110,9 @@ public class Sorting {
         } // for
     } // heapSort
     
+    /**
+     * A helper method to heapSort() used to re-heap down the heap-picture of the given array.
+     */
     public void reHeapDown(int[] values, int root, int bottom) {
         int maxIndex;
         int rightChild;
@@ -129,7 +126,7 @@ public class Sorting {
             if (values[leftChild] > values[rightChild]) maxIndex = leftChild;
             else maxIndex = rightChild;
             if (values[maxIndex] > values[root]) {
-                swap(values, maxIndex, root);
+                swap(values[maxIndex], values[root]); // ISSUE
                 reHeapDown(values, maxIndex, bottom);
             } // if
         } // if
