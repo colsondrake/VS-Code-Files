@@ -1,6 +1,9 @@
 /**
- * This program is a driver program which implements and executes Sorting.java, a program that contains the functionality for several sorting algorithms. 
+ * This program is a driver program which implements and executes 
+ * Sorting.java, a program that contains the functionality for several 
+ * sorting algorithms implemented as class methods. 
  */
+
 import java.util.Scanner;
 import java.io.*;
 
@@ -99,7 +102,6 @@ public class SortDriver {
         } // switch
 
         sortClass.printCount();
-
         scn.close();
     } // main
 } // SortDriver

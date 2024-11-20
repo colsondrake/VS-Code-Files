@@ -1,18 +1,23 @@
-import java.util.concurrent.ThreadLocalRandom;
 /**
  * This program is implemented by SortDriver.java and contains several 
  * different sorting algorithms implemented as class methods, and when 
  * called, performs them on/with the class instance variables. Also 
  * contains functionality to print and get and set variable values.
+ * 
+ * *DISCLAIMER*: Most of the methods within were primarily sourced 
+ * from CSCI 2720 class resources at the encouragement and direction of 
+ * project requirements and presiding professor. 
  */
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Sorting {
 
-    /**
-     * Instance variables:
-     * - 'compCount': the 'running total' of the number of comparisons 
-     *   executed by a single program execution.
-     */
-    private long compCount;
+    // Instance variables---------------------------------------------------
+    
+    // a variable to count the number of comparisons performed with each program execution
+    private long compCount; 
+
+    // Class methods--------------------------------------------------------
 
     /**
      * The default constructor method.
@@ -31,7 +36,11 @@ public class Sorting {
     /**
      * An iterative selection-sort algorithm performed on the class 
      * 'array' variable.
+     * 
      * Time complexity: O(N^2)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] selectionSort(int[] values, int numValues) {
         int endIndex = numValues - 1;
@@ -44,6 +53,11 @@ public class Sorting {
     /**
      * An iterative method which returns the smallest number in the 
      * array from the given 'start' index.
+     * 
+     * Time complexity: O(N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int minIndex(int[] values, int start, int end) {
         int indexOfMin = start;
@@ -58,6 +72,8 @@ public class Sorting {
 
     /**
      * Swap the values of the two given indexes in 'array'.
+     * 
+     * Time complexity: O(1)
      */
     public int[] swap(int[] values, int indexOne, int indexTwo) {
         int tempVar = values[indexOne];
@@ -68,7 +84,11 @@ public class Sorting {
     
     /**
      * A recursive merge-sort algorithm.
-     * Runtime Complexity: O(Nlog^2N)
+     * 
+     * Time Complexity: O(Nlog^2N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] mergeSort(int values[], int firstIndex, int lastIndex) {
         if (firstIndex < lastIndex) {
@@ -82,7 +102,11 @@ public class Sorting {
 
     /**
      * Merge two sorted subsections of a given array.
-     * Runtime complexity: O(N)
+     * 
+     * Time complexity: O(N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] merge(int values[], int leftFirstIndex, int leftLastIndex, int rightFirstIndex, int rightLastIndex) {
         int[] tempArray = new int[values.length];
@@ -128,7 +152,11 @@ public class Sorting {
 
     /**
      * An iterative heap-sort algorithm.
-     * Runtime complexity: O(NlogN)
+     * 
+     * Time complexity: O(NlogN)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] heapSort(int[] values, int numValues) {
         
@@ -154,6 +182,11 @@ public class Sorting {
     /**
      * A helper method for heapSort() used to re-heap down the heap 
      * picture of the given array.
+     * 
+     * Time complexity: O(logN)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] reHeapDown(int[] values, int root, int bottom) {
 
@@ -183,6 +216,11 @@ public class Sorting {
     /**
      * A quick-sort algorithm, using the last element in the array as 
      * the pivot.
+     * 
+     * Time complexity: O(Nlog^2N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] quickSortLast(int[] values, int first, int last) {
         if (first < last) {
@@ -196,6 +234,11 @@ public class Sorting {
     /**
      * A quick-sort algorithm performed, using a random element in the 
      * array as the pivot.
+     * 
+     * Time complexity: O(Nlog^2N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] quickSortRand(int[] values, int first, int last) {
         if (first < last) {
@@ -209,6 +252,11 @@ public class Sorting {
     /**
      * An iterative helper method to quickSortLast() and quickSortRand() 
      * to partition the elements of the subarray based on the pivot.
+     * 
+     * Time complexity: O(N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int partition(String type, int[] values, int lowIndex, int highIndex) {
         if (type.equals("rand")) values = setRandomHigh(values, lowIndex, highIndex);
@@ -229,6 +277,11 @@ public class Sorting {
     /**
      * A helper method to quickSortRand() used to set the last element 
      * in the given subarray to a random element within it.
+     * 
+     * Time complexity: O(1)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
+     * resources. 
      */
     public int[] setRandomHigh(int[] values, int lowIndex, int highIndex) {
         int randomIndex = ThreadLocalRandom.current().nextInt(lowIndex, highIndex);
