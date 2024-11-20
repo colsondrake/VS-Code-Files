@@ -1,5 +1,5 @@
 /**
- * This program is a driver program which implements and executes Sorting.java, a program that implements several sorting algorithms. 
+ * This program is a driver program which implements and executes Sorting.java, a program that contains the functionality for several sorting algorithms. 
  */
 import java.util.Scanner;
 import java.io.*;
@@ -47,40 +47,63 @@ public class SortDriver {
         } // for
 
         // Execute program functionality------------------------------------
+        
+        // Testing!! 
+        for (int num : intArr) System.out.print(num + " ");
+        System.out.println();
+        // Testing!!
+
         System.out.println("selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-last (q) quick-sort-rand (r)"); 
         System.out.print("Enter the algorithm: ");
         algInput = scn.nextLine();
         switch (algInput) {
 
-            // Implement the selectionSort() method 
+            // Execute the selectionSort() method 
             case "s":
-                sortClass.selectionSort(intArr, intArr.length);
+                intArr = sortClass.selectionSort(intArr, intArr.length);
+                for (int num : intArr) System.out.print(num + " ");
+                System.out.println();
+                System.out.print("#Selection-sort comparisons: ");
                 break;
             
-            // Implement the mergeSort() method
+            // Execute the mergeSort() method
             case "m":
-                sortClass.mergeSort(intArr, intArr[0], intArr[intArr.length-1]);
+                intArr = sortClass.mergeSort(intArr, 0, intArr.length - 1);
+                for (int num : intArr) System.out.print(num + " ");
+                System.out.println();        
+                System.out.print("#Merge-sort comparisons: ");
                 break;
 
-            // Implement the heapSort() method
+            // Execute the heapSort() method
             case "h":
-                sortClass.heapSort(intArr, intArr.length);
+                intArr = sortClass.heapSort(intArr, intArr.length);
+                for (int num : intArr) System.out.print(num + " ");
+                System.out.println();        
+                System.out.print("#Heap-sort comparisons: ");
                 break;
             
-            // Implement the quickSortLast() method
+            // Execute the quickSortLast() method
             case "q":
-                sortClass.quickSortLast();
+                intArr = sortClass.quickSortLast(intArr, 0, intArr.length - 1);
+                for (int num : intArr) System.out.print(num + " ");
+                System.out.println();        
+                System.out.print("#Quick-sort-last comparisons: ");
                 break;
             
-            // Implement the quickSortRand() method
+            // Execute the quickSortRand() method
             case "r":
-                sortClass.quickSortRand();
+                intArr = sortClass.quickSortRand(intArr, 0, intArr.length - 1);
+                for (int num : intArr) System.out.print(num + " ");
+                System.out.println();        
+                System.out.print("#Quick-sort-rand comparisons: ");
                 break;
 
             // If something else is received as input, do nothing. 
             default:
                 break;
         } // switch
+
+        sortClass.printCount();
 
         scn.close();
     } // main
