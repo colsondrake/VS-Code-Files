@@ -48,11 +48,6 @@ public class SortDriver {
 
         // Execute program functionality------------------------------------
         
-        // Testing!! 
-        for (int num : intArr) System.out.print(num + " ");
-        System.out.println();
-        // Testing!!
-
         System.out.println("selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-last (q) quick-sort-rand (r)"); 
         System.out.print("Enter the algorithm: ");
         algInput = scn.nextLine();

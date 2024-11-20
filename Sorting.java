@@ -1,14 +1,18 @@
 import java.util.concurrent.ThreadLocalRandom;
 /**
- * This program is implemented by SortDriver.java and contains several different sorting algorithms implemented as class methods, and when called, performs them on/with the class instance variables. Also contains functionality to print and get and set variable values.
+ * This program is implemented by SortDriver.java and contains several 
+ * different sorting algorithms implemented as class methods, and when 
+ * called, performs them on/with the class instance variables. Also 
+ * contains functionality to print and get and set variable values.
  */
 public class Sorting {
 
     /**
      * Instance variables:
-     * - 'compCount': the 'running total' of the number of comparisons executed by a single program execution.
+     * - 'compCount': the 'running total' of the number of comparisons 
+     *   executed by a single program execution.
      */
-    private int compCount;
+    private long compCount;
 
     /**
      * The default constructor method.
@@ -25,8 +29,9 @@ public class Sorting {
     } // printCount
 
     /**
-     * An iterative selection-sort algorithm performed on the class 'array' variable.
-     * Time complexity: O(n^2)
+     * An iterative selection-sort algorithm performed on the class 
+     * 'array' variable.
+     * Time complexity: O(N^2)
      */
     public int[] selectionSort(int[] values, int numValues) {
         int endIndex = numValues - 1;
@@ -37,7 +42,8 @@ public class Sorting {
     } // selectionSort
 
     /**
-     * An iterative method which returns the smallest number in the array from the given 'start' index.
+     * An iterative method which returns the smallest number in the 
+     * array from the given 'start' index.
      */
     public int minIndex(int[] values, int start, int end) {
         int indexOfMin = start;
@@ -61,8 +67,8 @@ public class Sorting {
     } // swap
     
     /**
-     * A recursive merge-sort algorithm performed on the class 'array' variable.
-     * Runtime Complexity: O(n*log^2(n))
+     * A recursive merge-sort algorithm.
+     * Runtime Complexity: O(Nlog^2N)
      */
     public int[] mergeSort(int values[], int firstIndex, int lastIndex) {
         if (firstIndex < lastIndex) {
@@ -76,7 +82,7 @@ public class Sorting {
 
     /**
      * Merge two sorted subsections of a given array.
-     * Runtime complexity: O(n)
+     * Runtime complexity: O(N)
      */
     public int[] merge(int values[], int leftFirstIndex, int leftLastIndex, int rightFirstIndex, int rightLastIndex) {
         int[] tempArray = new int[values.length];
@@ -121,16 +127,18 @@ public class Sorting {
     } // merge
 
     /**
-     * A heap-sort algorithm performed on the class 'array' variable.
+     * An iterative heap-sort algorithm.
+     * Runtime complexity: O(NlogN)
      */
     public int[] heapSort(int[] values, int numValues) {
         
         System.out.println("numValues: " + numValues); // CHECK
+
         int index;
 
         // Convert array values[0 to numValues-1] into a heap; a.k.a. 'Build-Max-Heap'
-        for (index = numValues/2 - 1; index >= 0; index--) {
-            // System.out.println("index: " + index); // CHECK
+        for (index = ((numValues / 2) - 1); index >= 0; index--) {
+            System.out.println("index: " + index); // CHECK
             values = reHeapDown(values, index, numValues - 1);
         } // for
 
@@ -144,78 +152,66 @@ public class Sorting {
     } // heapSort
     
     /**
-     * A helper method to heapSort() used to re-heap down the heap-picture of the given array.
+     * A helper method for heapSort() used to re-heap down the heap 
+     * picture of the given array.
      */
     public int[] reHeapDown(int[] values, int root, int bottom) {
-        int maxIndex;
-        int rightChild;
-        int leftChild;
 
-        maxIndex = -1;
-        rightChild = root * 2 + 2;
-        leftChild = root * 2 + 1;
+        int maxIndex = -1;
+        int rightChildIndex = root * 2 + 2;
+        int leftChildIndex = root * 2 + 1;
 
-        if (leftChild <= bottom) {
+        if (leftChildIndex <= bottom) {
+            // set maxIndex to the bigger child, left or right
+            if (values[leftChildIndex] > values[rightChildIndex]) {
+                maxIndex = leftChildIndex;
+            } else maxIndex = rightChildIndex;
             this.compCount++;
 
-            // System.out.println("leftChild: " + leftChild + " || rightChild: " + rightChild); // CHECK
-            // System.out.println("values[leftchild]: " + values[leftChild] + " || values[rightChild]: " + values[rightChild]); // CHECK
-
-            if (values[leftChild] > values[rightChild]) {
-                maxIndex = leftChild;
-            } else maxIndex = rightChild;
-            this.compCount++;
-
+            // only if the child node is greater than the root node,,,
             if (values[maxIndex] > values[root]) {
-                this.compCount++;
                 values = swap(values, maxIndex, root);
                 reHeapDown(values, maxIndex, bottom);
             } // if
+            this.compCount++;
         } // if
+        this.compCount++;
+
         return values;
     } // reHeapDown
     
     /**
-     * A quick-sort algorithm performed on the class 'array' variable, using the last element in the array as the pivot.
+     * A quick-sort algorithm, using the last element in the array as 
+     * the pivot.
      */
     public int[] quickSortLast(int[] values, int first, int last) {
         if (first < last) {
-            int pivot = partitionLast(values, first, last);
+            int pivot = partition("last", values, first, last);
             values = quickSortLast(values, first, pivot - 1);
             values = quickSortLast(values, pivot + 1, last);
         } // if
         return values;
     } // quickSortLast
 
-    public int partitionLast(int[] values, int lowIndex, int highIndex) {
-        int x = values[highIndex];
-        int i = lowIndex - 1;
-        for (int j = lowIndex; j <= highIndex - 1; j++) {
-            if (values[j] <= x) {
-                this.compCount++;
-                i++;
-                values = swap(values, i, j);
-            } // if
-        } // for
-        values = swap(values, i+1, highIndex);
-
-        return i + 1;
-    } // partition
-
     /**
-     * A quick-sort algorithm performed on the class 'array' variable, using a random element in the array as the pivot.
+     * A quick-sort algorithm performed, using a random element in the 
+     * array as the pivot.
      */
     public int[] quickSortRand(int[] values, int first, int last) {
         if (first < last) {
-            int pivot = partitionRand(values, first, last);
+            int pivot = partition("rand", values, first, last);
             values = quickSortRand(values, first, pivot - 1);
             values = quickSortRand(values, pivot + 1, last);
         } // if
         return values;
     } // quickSortLast
 
-    public int partitionRand(int[] values, int lowIndex, int highIndex) {
-        values = setRandomHigh(values, lowIndex, highIndex);
+    /**
+     * An iterative helper method to quickSortLast() and quickSortRand() 
+     * to partition the elements of the subarray based on the pivot.
+     */
+    public int partition(String type, int[] values, int lowIndex, int highIndex) {
+        if (type.equals("rand")) values = setRandomHigh(values, lowIndex, highIndex);
         int x = values[highIndex];
         int i = lowIndex - 1; 
         for (int j = lowIndex; j <= highIndex - 1; j++) { 
@@ -230,6 +226,10 @@ public class Sorting {
         return i + 1;
     } // partition
 
+    /**
+     * A helper method to quickSortRand() used to set the last element 
+     * in the given subarray to a random element within it.
+     */
     public int[] setRandomHigh(int[] values, int lowIndex, int highIndex) {
         int randomIndex = ThreadLocalRandom.current().nextInt(lowIndex, highIndex);
         int tempVar = values[highIndex];
