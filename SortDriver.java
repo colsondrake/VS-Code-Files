@@ -33,7 +33,10 @@ public class SortDriver {
         // Properly intake the input text file
         try {
             // store the given text file into the String variable 'fileText' via use of a BufferedReader
+
+            // br = new BufferedReader(new FileReader(args[0]));
             br = new BufferedReader(new FileReader(args[0]));
+
             fileText = br.readLine();
             br.close();
         } catch (IOException e) { // file error handling
@@ -42,6 +45,8 @@ public class SortDriver {
         
         // convert text file string into array of strings
         fileStrArr = fileText.split(" "); 
+
+        // CHECK------------------------------------------------------------
 
         // convert string elements to integer elements
         intArr = new int[fileStrArr.length];
@@ -102,6 +107,16 @@ public class SortDriver {
         } // switch
 
         sortClass.printCount();
+
+        // CHECK
+        boolean check = true;
+        int temp = intArr[0];
+        for (int i = 1; i < intArr.length; i++) {
+            if (intArr[i] < temp) check = false;
+            temp = intArr[i];
+        } // for
+        System.out.println("CORRECT OUTPUT CHECK: " + check); // CHECK
+
         scn.close();
     } // main
 } // SortDriver

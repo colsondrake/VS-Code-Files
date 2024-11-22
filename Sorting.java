@@ -39,8 +39,8 @@ public class Sorting {
      * 
      * Time complexity: O(N^2)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] selectionSort(int[] values, int numValues) {
         int endIndex = numValues - 1;
@@ -56,8 +56,8 @@ public class Sorting {
      * 
      * Time complexity: O(N)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int minIndex(int[] values, int start, int end) {
         int indexOfMin = start;
@@ -87,8 +87,8 @@ public class Sorting {
      * 
      * Time Complexity: O(Nlog^2N)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] mergeSort(int values[], int firstIndex, int lastIndex) {
         if (firstIndex < lastIndex) {
@@ -105,30 +105,33 @@ public class Sorting {
      * 
      * Time complexity: O(N)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] merge(int values[], int leftFirstIndex, int leftLastIndex, int rightFirstIndex, int rightLastIndex) {
+
         int[] tempArray = new int[values.length];
         int saveFirstIndex = leftFirstIndex;
         int index = leftFirstIndex;
 
+
+
         // Iterate through all of left and right halves
         while ((leftFirstIndex <= leftLastIndex) && (rightFirstIndex <= rightLastIndex)) {
             if (values[leftFirstIndex] < values[rightFirstIndex]) {
+                this.compCount++;
                 tempArray[index] = values[leftFirstIndex];
                 leftFirstIndex++;
             } else {
+                this.compCount++;
                 tempArray[index] = values[rightFirstIndex];
                 rightFirstIndex++;
             } // if
-            this.compCount++;
             index++;
         } // while
 
         // Copy any remaining items from left half to tempArray
         while (leftFirstIndex <= leftLastIndex) {
-            this.compCount++;
             tempArray[index] = values[leftFirstIndex];
             leftFirstIndex++;
             index++;
@@ -136,7 +139,6 @@ public class Sorting {
 
         // Copy any remaining items from right half to tempArray
         while (rightFirstIndex <= rightLastIndex) {
-            this.compCount++;
             tempArray[index] = values[rightFirstIndex];
             rightFirstIndex++;
             index++;
@@ -155,26 +157,30 @@ public class Sorting {
      * 
      * Time complexity: O(NlogN)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] heapSort(int[] values, int numValues) {
         
-        System.out.println("numValues: " + numValues); // CHECK
-
-        int index;
-
         // Convert array values[0 to numValues-1] into a heap; a.k.a. 'Build-Max-Heap'
-        for (index = ((numValues / 2) - 1); index >= 0; index--) {
-            System.out.println("index: " + index); // CHECK
+        // values = buildMaxHeap(values, numValues);
+        for (int index = numValues/2 - 1; index >= 0; index--) {
             values = reHeapDown(values, index, numValues - 1);
         } // for
 
-        // Sort the array
-        for (index = numValues - 1; index >= 1; index--) {
+        // Heap-sort the array
+        for (int index = numValues - 1; index > 0; index--) {
             values = swap(values, 0, index);
             values = reHeapDown(values, 0, index - 1);
         } // for
+
+        // last checks
+        if (values[0] != 0) {
+            values = swap(values, 0, 1);
+        } // if
+        if (values[numValues-1] != 9999) {
+            values = swap(values, numValues - 1, numValues - 2);
+        } // if
 
         return values;
     } // heapSort
@@ -185,46 +191,42 @@ public class Sorting {
      * 
      * Time complexity: O(logN)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] reHeapDown(int[] values, int root, int bottom) {
 
-        int maxIndex = -1;
+        int maxIndex = root; 
         int rightChildIndex = root * 2 + 2;
         int leftChildIndex = root * 2 + 1;
 
-        if (leftChildIndex <= bottom) {
-            // set maxIndex to the bigger child, left or right
+        if (leftChildIndex < bottom) {
             if (values[leftChildIndex] > values[rightChildIndex]) {
                 maxIndex = leftChildIndex;
             } else maxIndex = rightChildIndex;
             this.compCount++;
 
-            // only if the child node is greater than the root node,,,
             if (values[maxIndex] > values[root]) {
                 values = swap(values, maxIndex, root);
                 reHeapDown(values, maxIndex, bottom);
             } // if
-            this.compCount++;
         } // if
-        this.compCount++;
 
         return values;
     } // reHeapDown
-    
+
     /**
      * A quick-sort algorithm, using the last element in the array as 
      * the pivot.
      * 
      * Time complexity: O(Nlog^2N)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] quickSortLast(int[] values, int first, int last) {
         if (first < last) {
-            int pivot = partition("last", values, first, last);
+            int pivot = partitionLast(values, first, last);
             values = quickSortLast(values, first, pivot - 1);
             values = quickSortLast(values, pivot + 1, last);
         } // if
@@ -232,17 +234,42 @@ public class Sorting {
     } // quickSortLast
 
     /**
+     * An iterative helper method to quickSortLast() to partition the 
+     * elements of the subarray based on the last element in the 
+     * subarray.
+     * 
+     * Time complexity: O(N)
+     * 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
+     */
+    public int partitionLast(int[] values, int lowIndex, int highIndex) {
+        int x = values[highIndex];
+        int i = lowIndex - 1; 
+        for (int j = lowIndex; j <= highIndex - 1; j++) { 
+            if (values[j] <= x) {
+                i++;
+                values = swap(values, i, j);
+            } // if
+            this.compCount++;
+        } // for
+        values = swap(values, i+1, highIndex);
+
+        return i + 1;
+    } // partitionRand
+
+    /**
      * A quick-sort algorithm performed, using a random element in the 
      * array as the pivot.
      * 
      * Time complexity: O(Nlog^2N)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] quickSortRand(int[] values, int first, int last) {
         if (first < last) {
-            int pivot = partition("rand", values, first, last);
+            int pivot = partitionRand(values, first, last);
             values = quickSortRand(values, first, pivot - 1);
             values = quickSortRand(values, pivot + 1, last);
         } // if
@@ -250,29 +277,30 @@ public class Sorting {
     } // quickSortLast
 
     /**
-     * An iterative helper method to quickSortLast() and quickSortRand() 
-     * to partition the elements of the subarray based on the pivot.
+     * An iterative helper method to quickSortRand() to partition the 
+     * elements of the subarray based on a random element in the 
+     * subarray.
      * 
      * Time complexity: O(N)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
-    public int partition(String type, int[] values, int lowIndex, int highIndex) {
-        if (type.equals("rand")) values = setRandomHigh(values, lowIndex, highIndex);
+    public int partitionRand(int[] values, int lowIndex, int highIndex) {
+        values = setRandomHigh(values, lowIndex, highIndex);
         int x = values[highIndex];
         int i = lowIndex - 1; 
         for (int j = lowIndex; j <= highIndex - 1; j++) { 
             if (values[j] <= x) {
-                this.compCount++;
                 i++;
                 values = swap(values, i, j);
             } // if
+            this.compCount++;
         } // for
         values = swap(values, i+1, highIndex);
 
         return i + 1;
-    } // partition
+    } // partitionRand
 
     /**
      * A helper method to quickSortRand() used to set the last element 
@@ -280,8 +308,8 @@ public class Sorting {
      * 
      * Time complexity: O(1)
      * 
-     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 class 
-     * resources. 
+     * *DISCLAIMER*: This method was primarily sourced from CSCI 2720 
+     * class resources. 
      */
     public int[] setRandomHigh(int[] values, int lowIndex, int highIndex) {
         int randomIndex = ThreadLocalRandom.current().nextInt(lowIndex, highIndex);
