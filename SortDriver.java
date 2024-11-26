@@ -100,22 +100,13 @@ public class SortDriver {
                 System.out.println();        
                 System.out.print("#Quick-sort-rand comparisons: ");
                 break;
-
+   
             // If something else is received as input, do nothing. 
             default:
                 break;
         } // switch
 
         sortClass.printCount();
-
-        // CHECK
-        boolean check = true;
-        int temp = intArr[0];
-        for (int i = 1; i < intArr.length; i++) {
-            if (intArr[i] < temp) check = false;
-            temp = intArr[i];
-        } // for
-        System.out.println("CORRECT OUTPUT CHECK: " + check); // CHECK
 
         scn.close();
     } // main
